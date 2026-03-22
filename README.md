@@ -26,7 +26,7 @@ Este proyecto consiste en el desarrollo de un sistema en Java que simula el cál
 - Generación de un reporte comparativo entre vehículos.
 
 
-## ▶️ Ejecución del programa
+# Ejecución del programa
 
 1. Clonar el repositorio:
 ```bash
