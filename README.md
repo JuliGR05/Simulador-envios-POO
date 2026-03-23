@@ -36,8 +36,13 @@ AÉREOS
 - Dron
 - Avión
 
+# Requisitos Previos
 
-# Ejecución del programa
+Java JDK 17 o superior
+Terminal / CMD
+(Opcional): IntelliJ IDEA, Eclipse, VS Code con extensión Java
+
+# Instalación y ejecución del programa
 1. Clonar el repositorio:
 git clone <URL_DEL_REPOSITORIO>
 
@@ -52,12 +57,15 @@ java propoo.proPOO
 
 
 # Ejemplo de uso
-Destino: Antioquia
-Peso: 50 kg
+Destino: Antioquia (opción 9)
+Peso: 5 kg
 El sistema mostrará:
 * Vehículos disponibles
 * Costo de envío
 * Tiempo estimado
+
+# Licencia 
+Este proyecto es de uso académico. 
 
 # Autores
 Juliana Gutiérrez
