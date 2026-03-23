@@ -1,6 +1,4 @@
 package propoo;
-public abstract class Aereo extends Vehiculo {
-    public Aereo(String nombre, double velocidad, double capacidad_max, double costo_Km) {
-        super(nombre, velocidad, capacidad_max, costo_Km);
-    }
+abstract class Aereo extends Vehiculo {
+    public Aereo(String n, double v, double c, double cf) { super(n, v, c, cf); }
 }

@@ -1,10 +1,7 @@
 package propoo;
 public class Avion extends Aereo {
-    public Avion() {
-        super("Avión de Carga Nacional", 850.0, 300.0, 350.0);
-    }
-    @Override
-    public double calcularCosto(double d, double p) {
-        return (d * p * costo_Km) + 450000.0;
-    }
+    public Avion() { super("Avion de carga", 820.0, 2000.0, 8.0); }
+    @Override public boolean validarDistancia(double d) { return d >= 400; }
+    @Override public String getMensajeErrorDistancia() { return "Distancia mínima aérea: 400km."; }
+    @Override public double calcularCosto(double d, double p) { return 85000.0 + (d * p * getCostoFactor()); }
 }

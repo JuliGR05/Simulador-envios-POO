@@ -4,13 +4,14 @@ import java.util.Scanner;
 public class proPOO {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        
         String[] departamentos = {
-            "Cundinamarca", "Meta", "Boyacá", "Tolima", "Caldas", "Quindío", 
+            "Cundinamarca", "Meta", "Boyaca", "Tolima", "Caldas", "Quindio", 
             "Risaralda", "Huila", "Antioquia", "Santander", "Valle del Cauca", 
-            "Casanare", "Cauca", "Norte de Santander", "Arauca", "Córdoba", 
-            "Nariño", "Caquetá", "Putumayo", "Bolívar", "Cesar", "Sucre", 
-            "Atlántico", "Magdalena", "La Guajira", "Chocó", "Guainía", 
-            "Vaupés", "Guaviare", "Vichada", "Amazonas", "San Andrés", "Bogotá D.C."
+            "Casanare", "Cauca", "Norte de Santander", "Arauca", "Cordoba", 
+            "Narino", "Caqueta", "Putumayo", "Bolivar", "Cesar", "Sucre", 
+            "Atlantico", "Magdalena", "La Guajira", "Choco", "Guainia", 
+            "Vaupes", "Guaviare", "Vichada", "Amazonas", "San Andres", "Bogota D.C."
         };
 
         double[] distDeptos = {
@@ -18,11 +19,12 @@ public class proPOO {
             404, 430, 499, 517, 390, 450, 659, 654, 620, 707, 733, 820, 
             370, 820, 750, 430, 700, 1160, 1050, 0
         };
+
         String[] localidades = {
-            "Teusaquillo", "Barrios Unidos", "Santa Fe", "Los Mártires", "Usaquén", 
-            "Engativá", "La Candelaria", "Suba", "Antonio Nariño", "Puente Aranda", 
-            "Fontibón", "Kennedy", "Rafael Uribe Uribe", "Tunjuelito", "San Cristóbal", 
-            "Bosa", "Usme", "Ciudad Bolívar", "Sumapaz"
+            "Teusaquillo", "Barrios Unidos", "Santa Fe", "Los Martires", "Usaquen", 
+            "Engativa", "La Candelaria", "Suba", "Antonio Narino", "Puente Aranda", 
+            "Fontibon", "Kennedy", "Rafael Uribe Uribe", "Tunjuelito", "San Cristobal", 
+            "Bosa", "Usme", "Ciudad Bolivar", "Sumapaz"
         };
 
         double[] distLocalidades = {
@@ -30,71 +32,71 @@ public class proPOO {
             9.5, 10.5, 11.0, 11.5, 12.0, 14.0, 16.5, 16.8, 55.0
         };
 
-        System.out.println("=== SOFTWARE DE LOGÍSTICA NACIONAL (ORIGEN: BOGOTÁ) ===");
-        System.out.println("\nSeleccione el Departamento de destino:");
+        System.out.println("=== SOFTWARE DE LOGISTICA (ORIGEN: BOGOTA) ===");
+        System.out.println("Seleccione el Departamento de destino:");
         for (int i = 0; i < departamentos.length; i++) {
-            System.out.printf("%2d. %s\n", (i + 1), departamentos[i]);
+            System.out.println((i + 1) + ". " + departamentos[i]);
         }
-        System.out.print("Opción: ");
+        
+        System.out.print("Opcion: ");
         int opDepto = scanner.nextInt();
         
+        if (opDepto < 1 || opDepto > departamentos.length) {
+            System.out.println("Error: Seleccion no valida.");
+            return;
+        }
+
         String nombreDestino = departamentos[opDepto - 1];
         double distanciaFinal = distDeptos[opDepto - 1];
 
-        if (nombreDestino.equals("Bogotá D.C.")) {
-            System.out.println("\n--- SELECCIÓN DE LOCALIDAD EN BOGOTÁ ---");
+        if (nombreDestino.equals("Bogota D.C.")) {
+            System.out.println("--- SELECCION DE LOCALIDAD EN BOGOTA ---");
             for (int j = 0; j < localidades.length; j++) {
-                System.out.printf("%2d. %s\n", (j + 1), localidades[j]);
+                System.out.println((j + 1) + ". " + localidades[j]);
             }
-            System.out.print("Opción: ");
+            System.out.print("Opcion Localidad: ");
             int opLoc = scanner.nextInt();
-            nombreDestino = localidades[opLoc - 1];
-            distanciaFinal = distLocalidades[opLoc - 1];
+            
+            if (opLoc >= 1 && opLoc <= localidades.length) {
+                nombreDestino = localidades[opLoc - 1];
+                distanciaFinal = distLocalidades[opLoc - 1];
+            } else {
+                System.out.println("Localidad no valida, se usara distancia base 0.");
+            }
         }
-        System.out.print("\nIngrese el peso de la mercancía (kg): ");
+
+        System.out.print("\nIngrese el peso de la carga (kg): ");
         double pesoCarga = scanner.nextDouble();
 
-        if (pesoCarga <= 0) {
-            System.out.println("Error: El peso debe ser mayor a 0.");
-            return;
-        }
         Vehiculo[] flota = { 
             new Dron(), new Bicicleta(), new Moto(), 
             new Auto(), new Avion(), new Camion() 
         };
-        System.out.println("\n" + "=".repeat(55));
-        System.out.println("REPORTE DE COTIZACIÓN - DESTINO: " + nombreDestino.toUpperCase());
-        System.out.println("Distancia: " + distanciaFinal + " km | Peso: " + pesoCarga + " kg");
-        System.out.println("=".repeat(55));
+
+        System.out.println("============================================================");
+        System.out.println("REPORTE PARA: " + nombreDestino.toUpperCase());
+        System.out.println("DISTANCIA: " + distanciaFinal + " km | PESO: " + pesoCarga + " kg");
+        System.out.println("============================================================");
 
         for (Vehiculo v : flota) {
-            System.out.println("TRANSPORTE: " + v.nombre);
+            System.out.println("VEHICULO: " + v.getNombre());
 
-            boolean distApta = true;
-            String msgError = "";
-            if (v instanceof Avion && distanciaFinal < 400) {
-                distApta = false;
-                msgError = "Distancia mínima aérea: 400km.";
-            } else if (v instanceof Camion && distanciaFinal < 30) {
-                distApta = false;
-                msgError = "Uso exclusivo para rutas de larga distancia.";
-            } else if ((v instanceof Bicicleta || v instanceof Dron) && distanciaFinal > 40) {
-                distApta = false;
-                msgError = "Excede el rango de autonomía urbana.";
-            }
             if (!v.validarCarga(pesoCarga)) {
-                System.out.println(" > ESTADO: RECHAZADO (Capacidad máx: " + v.capacidad_max + " kg)");
-            } else if (!distApta) {
-                System.out.println(" > ESTADO: RECHAZADO (" + msgError + ")");
+                System.out.println(" > ESTADO: RECHAZADO (Capacidad max: " + v.getCapacidadMax() + " kg)");
+            } else if (!v.validarDistancia(distanciaFinal)) {
+                System.out.println(" > ESTADO: RECHAZADO (" + v.getMensajeErrorDistancia() + ")");
             } else {
-                double costoTotal = v.calcularCosto(distanciaFinal, pesoCarga);
-                double tiempoEst = v.calcularTiempo(distanciaFinal);
+                double costo= v.calcularCosto(distanciaFinal, pesoCarga);
+                double tiempo = v.calcularTiempo(distanciaFinal);
+                
+                long costoFinal = (long) (costo + 0.5);
+                double tiempoFinal = ((long) (tiempo * 100 + 0.5)) / 100.0;
 
                 System.out.println(" > ESTADO: DISPONIBLE");
-                System.out.printf(" > COSTO DE ENVÍO: $%,.0f COP\n", costoTotal);
-                System.out.printf(" > TIEMPO ESTIMADO: %.2f horas\n", tiempoEst);
+                System.out.println(" > COSTO DE ENVIO: $" + costoFinal + " COP");
+                System.out.println(" > TIEMPO ESTIMADO: " + tiempoFinal + " horas");
             }
-            System.out.println("-".repeat(55));
+            System.out.println("------------------------------------------------------------");
         }
         scanner.close();
     }
