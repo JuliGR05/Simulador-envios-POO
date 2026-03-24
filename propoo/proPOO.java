@@ -38,35 +38,83 @@ public class proPOO {
             System.out.println((i + 1) + ". " + departamentos[i]);
         }
         
-        System.out.print("Opcion: ");
-        int opDepto = scanner.nextInt();
-        
-        if (opDepto < 1 || opDepto > departamentos.length) {
-            System.out.println("Error: Seleccion no valida.");
-            return;
-        }
+        // Para el departamento
+        int opDepto = 0;
+            boolean valido = false;
 
-        String nombreDestino = departamentos[opDepto - 1];
-        double distanciaFinal = distDeptos[opDepto - 1];
+            while (!valido) {
+                System.out.print("Opcion: ");
+            
+                try {
+                    opDepto = scanner.nextInt();
 
+                    if (opDepto < 1 || opDepto > departamentos.length) {
+                        System.out.println("Error: Seleccion no valida.");
+                    } else {
+                        valido = true;
+                }
+
+                } catch (Exception e) {
+                    System.out.println("Error: debes ingresar un número válido.");
+                    scanner.next();
+                }
+            }
+
+            String nombreDestino = departamentos[opDepto - 1];
+            double distanciaFinal = distDeptos[opDepto - 1];
+
+        // Para la localidad
         if (nombreDestino.equals("Bogota D.C.")) {
             System.out.println("--- SELECCION DE LOCALIDAD EN BOGOTA ---");
             for (int j = 0; j < localidades.length; j++) {
                 System.out.println((j + 1) + ". " + localidades[j]);
             }
-            System.out.print("Opcion Localidad: ");
-            int opLoc = scanner.nextInt();
-            
-            if (opLoc >= 1 && opLoc <= localidades.length) {
-                nombreDestino = localidades[opLoc - 1];
-                distanciaFinal = distLocalidades[opLoc - 1];
-            } else {
-                System.out.println("Localidad no valida, se usara distancia base 0.");
+
+            int opLoc = 0;
+            boolean locValida = false;
+
+            while (!locValida) {
+                System.out.print("Opcion Localidad: ");
+                
+                try {
+                    opLoc = scanner.nextInt();
+
+                    if (opLoc >= 1 && opLoc <= localidades.length) {
+                        nombreDestino = localidades[opLoc - 1];
+                        distanciaFinal = distLocalidades[opLoc - 1];
+                        locValida = true;
+                    } else {
+                        System.out.println("Localidad no valida, intenta de nuevo.");
+                    }
+
+                } catch (Exception e) {
+                    System.out.println("Error: debes ingresar un número válido.");
+                    scanner.next();
+                }
             }
         }
 
-        System.out.print("\nIngrese el peso de la carga (kg): ");
-        double pesoCarga = scanner.nextDouble();
+        //Para el peso
+        double pesoCarga = 0;
+        boolean pesoValido = false;
+
+        while (!pesoValido) {
+            System.out.print("\nIngrese el peso de la carga (kg): ");
+            
+            try {
+                pesoCarga = scanner.nextDouble();
+
+                if (pesoCarga > 0) {
+                    pesoValido = true;
+                } else {
+                    System.out.println("Error: el peso debe ser positivo.");
+                }
+
+            } catch (Exception e) {
+                System.out.println("Error: debes ingresar un número válido.");
+                scanner.next();
+            }
+        }
 
         Vehiculo[] flota = { 
             new Dron(), new Bicicleta(), new Moto(), 
@@ -98,6 +146,7 @@ public class proPOO {
             }
             System.out.println("------------------------------------------------------------");
         }
+
         scanner.close();
     }
 }
